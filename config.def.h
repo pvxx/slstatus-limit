@@ -65,6 +65,10 @@ static const char unknown_str[] = "n/a";
  * wifi_perc           WiFi signal in percent          interface name (wlan0)
  */
 static const struct arg args[] = {
-	/* function format          argument */
-	{ datetime, "%s",           "%F %T" },
+	/* function format           argument   limit  limit_format */
+	{ datetime, "%s",           "%F %T",    0,     NULL },
+
+	/* example of different format above limit (both format strings can contain anything your status supports, including icons and colors)
+	{ ram_perc, "RAM: %s%%",         "",         90,    "RAM OVER LIMIT: %s%%" },
+	 */
 };

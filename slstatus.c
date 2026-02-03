@@ -15,6 +15,8 @@ struct arg {
 	const char *(*func)(const char *);
 	const char *fmt;
 	const char *args;
+	long limit;
+	const char *limit_fmt;
 };
 
 char buf[1024];
@@ -49,6 +51,8 @@ main(int argc, char *argv[])
 {
 	struct sigaction act;
 	struct timespec start, current, diff, intspec, wait;
+	long val;
+	const char *fmt;
 	size_t i, len;
 	int sflag, ret;
 	char status[MAXLEN];
@@ -91,8 +95,16 @@ main(int argc, char *argv[])
 			if (!(res = args[i].func(args[i].args)))
 				res = unknown_str;
 
+			if (args[i].limit &&
+				(val = strtol(res, NULL, 10)) > args[i].limit &&
+				args[i].limit_fmt) {
+					fmt = args[i].limit_fmt;
+			} else {
+					fmt = args[i].fmt;
+			}
+
 			if ((ret = esnprintf(status + len, sizeof(status) - len,
-			                     args[i].fmt, res)) < 0)
+			                     fmt, res)) < 0)
 				break;
 
 			len += ret;

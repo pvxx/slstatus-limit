@@ -1,3 +1,14 @@
+slstatus-limit patch
+====================
+
+Adds a numeric limit and alternate format string to the configuration.
+When the returned numeric value exceeds this limit, the alternate format
+is used instead of the default one. Useful for visual alerts such as
+high CPU/memory usage or low battery, e.g. by changing colors in status
+bars that support it (such as dwm with color patches).
+
+Original README below:
+
 slstatus - suckless status
 ==========================
 slstatus is a small tool for providing system status information to other
